@@ -1,12 +1,13 @@
 # Want to track this .gitignore file in Git, so override the top-level ignore
 !.gitignore
 .project
-
-node_modules/
+node_modules/*
 npm-debug.log
 
 #DO NOT IGONORE git_node MODULE
-!node_modules/git_node/
+!node_modules/
+!node_modules/git_node
+!node_modules/git_node/*
 !node_modules/README.md
 
 

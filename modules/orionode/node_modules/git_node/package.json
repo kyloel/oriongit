@@ -1,0 +1,21 @@
+{
+  "name": "git_node",
+  "main": "index.js",
+  "version": "0.0.1",
+  "description": "A node module allowing to use git without external dependencies (i.e. git cli)",
+  "repository": {
+    "type": "git",
+    "url": "http://github.com/kyloel/git.node"
+  },
+  "keywords": [
+    "git",
+    "js",
+    "node"
+  ],
+  "author": "Krzysztof Łęcki",
+  "license": 
+  {
+	"type": "EPL"
+	"url": "http://www.eclipse.org/legal/epl-v10.html"
+  }
+}
