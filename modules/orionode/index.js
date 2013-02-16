@@ -18,6 +18,7 @@ var url = require('url');
 var AppContext = require('./lib/node_apps').AppContext;
 var appSocket = require('./lib/node_app_socket');
 var orionFile = require('./lib/file');
+var orionGit = require('./lib/git');
 var orionNode = require('./lib/node');
 var orionWorkspace = require('./lib/workspace');
 var orionNodeStatic = require('./lib/orionode_static');
@@ -77,6 +78,12 @@ function startServer(options) {
 				fileRoot: '/file',
 				workspaceDir: workspaceDir
 			}))
+			
+			.use(orionGit({
+				root: '/gitapi',
+				workspaceDir: workspaceDir
+			}))
+						
 			.use(orionNode({
 				appContext: appContext,
 				root: '/node'
