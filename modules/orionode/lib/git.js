@@ -33,11 +33,6 @@ function doJob(handler, rest, req, res) {
 	var queryData = "";
 	req.on('data', function(data) {
 		queryData += data;
-		if(queryData.length > 1e6) {
-			queryData = "";
-			res.writeHead(413, {'Content-Type': 'text/plain'});
-			req.connection.destroy();
-		}
 	});
 	req.on('end', function() {
 		write(200, res, null, method(rest, queryData));
