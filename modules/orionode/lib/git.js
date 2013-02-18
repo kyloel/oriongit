@@ -60,18 +60,18 @@ module.exports = function(options) {
 		},
 
 		POST: function(req, res, next, rest) {
-			var handler = posttHandlers;
-			doJob(handler, rest);
+			var handler = postHandlers;
+			doJob(handler, rest, req, res);
 			
 		},
 		DELETE: function(req, res, next, rest) {
 			var handler = deleteHandlers;
-			doJob(handler, rest);
+			doJob(handler, rest, req, res);
 		},
 	
 		PUT: function(req, res, next, res) {
 			var handler = putHandlers;
-			doJob(handler, rest);
+			doJob(handler, rest, req, res);
 		},
 
 	}));
@@ -182,7 +182,8 @@ function postBranch(rest, queryData) {
 }
 
 function postClone(rest, queryData) {
-	
+	console.log(queryData);
+	json = JSON.parse(queryData);
 }
 
 function postCommit(rest, queryData) {
