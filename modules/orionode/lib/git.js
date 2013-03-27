@@ -163,45 +163,53 @@ function getClone(res, rest, dataJson, workspaceDir) {
 
 	fs.readdir(workspaceDir, function (err, list)
 	{
-		//TODO send response when list is empty
 		if (err)
 		{
 			writeError(500, res, 'Error occured ');
 		} else {
 			var filesCount = list.length;
 			var filesVerified = 0;
-			list.forEach(function (file) {
-				var path = workspaceDir + "/" + file;
-				fs.stat(path, function (err, stat) {
-					if (err)
-					{
-						writeError(500, res, 'Error occured ');
-					}
-					else if (stat.isDirectory())
-					{
-						var gitDir = path+'/.git';
-						fs.exists(gitDir, function (exists) {
-							if (exists)
-							{
-								repositories.push(file);	
-							}
+			if (filesCount === 0)
+			{
+				//var json = JSON.stringify( { "Children" : entries, "Type": "Clone" } );
+				write(200, res, null, { "Children" : [ ], "Type": "Clone" });
+			}
+			else
+				
+			{
+				list.forEach(function (file) {
+					var path = workspaceDir + "/" + file;
+					fs.stat(path, function (err, stat) {
+						if (err)
+						{
+							writeError(500, res, 'Error occured ');
+						}
+						else if (stat.isDirectory())
+						{
+							var gitDir = path+'/.git';
+							fs.exists(gitDir, function (exists) {
+								if (exists)
+								{
+									repositories.push(file);	
+								}
+								filesVerified++;
+								if (filesVerified === filesCount)
+								{
+									sendResponse();
+								}
+							});
+						}
+						else 
+						{
 							filesVerified++;
 							if (filesVerified === filesCount)
 							{
 								sendResponse();
 							}
-						});
-					}
-					else 
-					{
-						filesVerified++;
-						if (filesVerified === filesCount)
-						{
-							sendResponse();
 						}
-					}
+					});
 				});
-			});
+			}
 		}		
 	});
 }
